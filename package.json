@@ -32,7 +32,7 @@
     "@types/benchmark": "^1.0.31",
     "@types/big-integer": "0.0.31",
     "@types/jest": "^22.2.2",
-    "@types/node": "8.0.19",
+    "@types/node": "^16.10.3",
     "benchmark": "^2.1.4",
     "big-integer": "^1.6.0",
     "docs-ts": "0.0.1",
@@ -76,6 +76,7 @@
     "fp-ts"
   ],
   "jest": {
+    "testURL": "http://localhost/",
     "globals": {
       "ts-jest": {
         "skipBabel": true
