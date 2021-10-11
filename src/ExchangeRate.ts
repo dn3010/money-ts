@@ -5,19 +5,19 @@ import { Dense } from './Dense'
 import * as PR from './PositiveRational'
 import { unsafeCoerce } from 'fp-ts/function'
 
-export interface ExchangeRate<S, D> extends Newtype<['ExchangeRate', S, D], PR.PositiveRational> {}
+export interface ExchangeRate<S, D> extends Newtype<['ExchangeRate', S, D], [PR.PositiveRational, D]> {}
 
-export const wrap: <S, D>(r: PR.PositiveRational) => ExchangeRate<S, D> = unsafeCoerce
+export const wrap: <S, D>(er: [PR.PositiveRational, D]) => ExchangeRate<S, D> = unsafeCoerce
 
-export const unwrap: <S, D>(er: ExchangeRate<S, D>) => PR.PositiveRational = unsafeCoerce
+export const unwrap: <S, D>(er: ExchangeRate<S, D>) => [PR.PositiveRational, D] = unsafeCoerce
 
-export const exchange = <S extends string, D extends string>(er: ExchangeRate<S, D>) => (d: Dense<S>): Dense<D> => {
-  return unsafeCoerce(d.mul(unwrap(er)))
-}
-
-export function compose<A, B, C>(bc: ExchangeRate<B, C>, ab: ExchangeRate<A, B>): ExchangeRate<A, C> {
-  return wrap(PR.mul(unwrap(bc), unwrap(ab)))
-}
+export const exchange =
+  <S extends string, D extends string>(er: ExchangeRate<S, D>) =>
+  (s: Dense<S>): Dense<D> => {
+    const [r, d] = unwrap(er)
+    const d2 = new Dense(d, s.value)
+    return d2.mul(r)
+  }
 
 export const getEq = <S, D>(): Eq<ExchangeRate<S, D>> => unsafeCoerce(PR.Eq)
 
