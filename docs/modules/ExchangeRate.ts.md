@@ -11,7 +11,6 @@ parent: Modules
 - [ExchangeRate (interface)](#exchangerate-interface)
 - [unwrap (constant)](#unwrap-constant)
 - [wrap (constant)](#wrap-constant)
-- [compose (function)](#compose-function)
 - [exchange (function)](#exchange-function)
 - [getEq (function)](#geteq-function)
 - [getOrd (function)](#getord-function)
@@ -23,7 +22,7 @@ parent: Modules
 **Signature**
 
 ```ts
-export interface ExchangeRate<S, D> extends Newtype<['ExchangeRate', S, D], PR.PositiveRational> {}
+export interface ExchangeRate<S, D> extends Newtype<['ExchangeRate', S, D], [PR.PositiveRational, S, D]> {}
 ```
 
 # unwrap (constant)
@@ -31,7 +30,7 @@ export interface ExchangeRate<S, D> extends Newtype<['ExchangeRate', S, D], PR.P
 **Signature**
 
 ```ts
-export const unwrap: <S, D>(er: ExchangeRate<S, D>) => PR.PositiveRational = ...
+export const unwrap: <S, D>(er: ExchangeRate<S, D>) => [PR.PositiveRational, S, D] = ...
 ```
 
 # wrap (constant)
@@ -39,15 +38,7 @@ export const unwrap: <S, D>(er: ExchangeRate<S, D>) => PR.PositiveRational = ...
 **Signature**
 
 ```ts
-export const wrap: <S, D>(r: PR.PositiveRational) => ExchangeRate<S, D> = ...
-```
-
-# compose (function)
-
-**Signature**
-
-```ts
-export function compose<A, B, C>(bc: ExchangeRate<B, C>, ab: ExchangeRate<A, B>): ExchangeRate<A, C> { ... }
+export const wrap: <S, D>(er: [PR.PositiveRational, S, D]) => ExchangeRate<S, D> = ...
 ```
 
 # exchange (function)
@@ -55,7 +46,9 @@ export function compose<A, B, C>(bc: ExchangeRate<B, C>, ab: ExchangeRate<A, B>)
 **Signature**
 
 ```ts
-export const exchange = <S extends string, D extends string>(er: ExchangeRate<S, D>) => (d: Dense<S>): Dense<D> => ...
+export const exchange =
+  <S extends string, D extends string>(er: ExchangeRate<S, D>) =>
+  (s: Dense<S>): Dense<D> => ...
 ```
 
 # getEq (function)
