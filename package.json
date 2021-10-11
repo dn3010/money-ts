@@ -1,5 +1,5 @@
 {
-  "name": "money-ts",
+  "name": "@sylo/money-ts",
   "version": "0.2.0",
   "description": "TypeScript library for type-safe and lossless encoding and manipulation of world currencies and precious metals",
   "files": [
