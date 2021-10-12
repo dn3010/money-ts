@@ -116,7 +116,7 @@ toString(): string { ... }
 **Signature**
 
 ```ts
-export function getEq<D extends string, U extends string>(): Eq<Discrete<D, U>> { ... }
+export function getEq<D extends string, U extends string | number | symbol>(): Eq<Discrete<D, U>> { ... }
 ```
 
 # getOne (function)
@@ -132,7 +132,7 @@ export function getOne<D extends string, U extends string>(format: Format<D, U>)
 **Signature**
 
 ```ts
-export function getOrd<D extends string, U extends string>(): Ord<Discrete<D, U>> { ... }
+export function getOrd<D extends string, U extends string | number | symbol>(): Ord<Discrete<D, U>> { ... }
 ```
 
 # getZero (function)

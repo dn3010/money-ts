@@ -45,13 +45,13 @@ export function getZero<D extends string, U extends string>(format: Format<D, U>
   return new Discrete(format, integer.zero)
 }
 
-export function getEq<D extends string, U extends string>(): Eq<Discrete<D, U>> {
+export function getEq<D extends string, U extends string | number | symbol>(): Eq<Discrete<D, U>> {
   return {
     equals: (x, y) => integer.Eq.equals(x.value, y.value)
   }
 }
 
-export function getOrd<D extends string, U extends string>(): Ord<Discrete<D, U>> {
+export function getOrd<D extends string, U extends string | number | symbol>(): Ord<Discrete<D, U>> {
   return {
     ...getEq(),
     compare: (x, y) => integer.Ord.compare(x.value, y.value)
