@@ -2,10 +2,13 @@ import { scale } from '../Scale'
 import { PositiveRational } from '../PositiveRational'
 import { unsafePositiveRational } from './unsafePositiveRational'
 
+export const JPY: unique symbol = Symbol.for('JPY')
+export type JPY = typeof JPY
+
 declare module '../Scale' {
   interface Scale {
     /** Japanese yen */
-    JPY: {
+    [JPY]: {
       JPY: PositiveRational
       yen: PositiveRational
       sen: PositiveRational
@@ -13,7 +16,7 @@ declare module '../Scale' {
   }
 }
 
-scale['JPY'] = {
+scale[JPY] = {
   JPY: unsafePositiveRational([100, 1]),
   yen: unsafePositiveRational([1, 1]),
   sen: unsafePositiveRational([100, 1])

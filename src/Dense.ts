@@ -8,7 +8,7 @@ import { PositiveRational } from './PositiveRational'
 import * as R from './Rational'
 import * as I from './Integer'
 
-export class Dense<D extends string> {
+export class Dense<D extends symbol> {
   constructor(readonly dimension: D, readonly value: R.Rational) {}
   isZero(): boolean {
     return R.isZero(this.value)
@@ -32,29 +32,29 @@ export class Dense<D extends string> {
     return this.toString()
   }
   toString(): string {
-    return `${this.dimension} ${R.show(this.value)}`
+    return `${this.dimension.toString().slice(7, -1)} ${R.show(this.value)}`
   }
 }
 
-export function fromInteger<D extends string>(d: D, i: Integer): Dense<D> {
+export function fromInteger<D extends symbol>(d: D, i: Integer): Dense<D> {
   return new Dense(d, R.fromInteger(i))
 }
 
-export function getZero<D extends string>(d: D): Dense<D> {
+export function getZero<D extends symbol>(d: D): Dense<D> {
   return new Dense(d, R.zero)
 }
 
-export function getOne<D extends string>(d: D): Dense<D> {
+export function getOne<D extends symbol>(d: D): Dense<D> {
   return new Dense(d, R.one)
 }
 
-export function getEq<D extends string>(): Eq<Dense<D>> {
+export function getEq<D extends symbol>(): Eq<Dense<D>> {
   return {
     equals: (x, y) => R.Eq.equals(x.value, y.value)
   }
 }
 
-export function getOrd<D extends string>(): Ord<Dense<D>> {
+export function getOrd<D extends symbol>(): Ord<Dense<D>> {
   return {
     ...getEq(),
     compare: (x, y) => R.Ord.compare(x.value, y.value)

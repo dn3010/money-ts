@@ -47,7 +47,7 @@ export const wrap: <S, D>(er: [PR.PositiveRational, S, D]) => ExchangeRate<S, D>
 
 ```ts
 export const exchange =
-  <S extends string, D extends string>(er: ExchangeRate<S, D>) =>
+  <S extends symbol, D extends symbol>(er: ExchangeRate<S, D>) =>
   (s: Dense<S>): Dense<D> => ...
 ```
 

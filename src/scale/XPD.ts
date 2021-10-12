@@ -2,10 +2,13 @@ import { scale } from '../Scale'
 import { PositiveRational } from '../PositiveRational'
 import { unsafePositiveRational } from './unsafePositiveRational'
 
+export const XPD: unique symbol = Symbol.for('XPD')
+export type XPD = typeof XPD
+
 declare module '../Scale' {
   interface Scale {
     /** Palladium. No canonical smallest unit */
-    XPD: {
+    [XPD]: {
       'troy-ounce': PositiveRational
       grain: PositiveRational
       milligrain: PositiveRational
@@ -18,7 +21,7 @@ declare module '../Scale' {
   }
 }
 
-scale['XPD'] = {
+scale[XPD] = {
   'troy-ounce': unsafePositiveRational([1, 1]),
   grain: unsafePositiveRational([480, 1]),
   milligrain: unsafePositiveRational([480000, 1]),

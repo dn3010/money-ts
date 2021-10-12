@@ -1,25 +1,16 @@
-import * as assert from 'assert'
 import * as M from '../src'
 import * as ER from '../src/ExchangeRate'
+import { BTC } from '../src/scale/BTC'
+import { JPY } from '../src/scale/JPY'
 import { unsafePositiveRational } from '../src/scale/unsafePositiveRational'
-import { unsafeInteger, assertEqualDense } from './helpers'
-
-const S = M.exchangeRate.getEq<any, any>()
-
-function assertEqual<S, D>(x: ER.ExchangeRate<S, D>): (y: ER.ExchangeRate<S, D>) => void {
-  return (y) => {
-    if (!S.equals(x, y)) {
-      assert.fail(`${x} !== ${y}`)
-    }
-  }
-}
+import { assertEqualDense, unsafeInteger } from './helpers'
 
 describe('ExchangeRate', () => {
   it('exchange', () => {
-    const jpybtc = ER.wrap<'JPY', 'BTC'>([unsafePositiveRational([3, 1000000]), 'JPY', 'BTC'])
-    const btc = M.dense.fromInteger('BTC', M.integer.one)
-    const jpy = M.dense.fromInteger('JPY', unsafeInteger(2))
+    const jpybtc = ER.wrap<JPY, BTC>([unsafePositiveRational([3, 1000000]), JPY, BTC])
+    const btc = M.dense.fromInteger(BTC, M.integer.one)
+    const jpy = M.dense.fromInteger(JPY, unsafeInteger(2))
     const result = btc.add(ER.exchange(jpybtc)(jpy))
-    assertEqualDense(result)(new M.dense.Dense('BTC', unsafePositiveRational([500003, 500000])))
+    assertEqualDense(result)(new M.dense.Dense(BTC, unsafePositiveRational([500003, 500000])))
   })
 })

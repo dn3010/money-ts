@@ -2,7 +2,7 @@ import * as assert from 'assert'
 import { Discrete, getOne, getZero, getOrd } from '../src/Discrete'
 import { unsafeInteger, unsafeNonZeroInteger, assertEqualDiscrete } from './helpers'
 
-const format = { dimension: 'EUR', unit: 'cent' }
+const format = { dimension: Symbol.for('EUR'), unit: 'cent' }
 const dn0 = new Discrete(format, unsafeInteger(0))
 const dn1 = new Discrete(format, unsafeInteger(1))
 const dn2 = new Discrete(format, unsafeInteger(2))

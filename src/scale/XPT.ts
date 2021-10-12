@@ -2,10 +2,13 @@ import { scale } from '../Scale'
 import { PositiveRational } from '../PositiveRational'
 import { unsafePositiveRational } from './unsafePositiveRational'
 
+export const XPT: unique symbol = Symbol.for('XPT')
+export type XPT = typeof XPT
+
 declare module '../Scale' {
   interface Scale {
     /** Platinum. No canonical smallest unit */
-    XPT: {
+    [XPT]: {
       'troy-ounce': PositiveRational
       grain: PositiveRational
       milligrain: PositiveRational
@@ -18,7 +21,7 @@ declare module '../Scale' {
   }
 }
 
-scale['XPT'] = {
+scale[XPT] = {
   'troy-ounce': unsafePositiveRational([1, 1]),
   grain: unsafePositiveRational([480, 1]),
   milligrain: unsafePositiveRational([480000, 1]),

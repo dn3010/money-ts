@@ -32,7 +32,7 @@ export const BigInteger = new t.Type<bigInteger.BigInteger, string>(
   (a) => a.toString()
 )
 
-export const getDense = <D extends string>(dimension: D): t.Type<Dense<D>, [string, string], t.mixed> =>
+export const getDense = <D extends symbol>(dimension: D): t.Type<Dense<D>, [string, string], unknown> =>
   new t.Type(
     'Dense',
     (m): m is Dense<D> => m instanceof Dense && m.dimension === dimension,
@@ -44,10 +44,10 @@ export const getDense = <D extends string>(dimension: D): t.Type<Dense<D>, [stri
     (a) => Rational.encode(a.value)
   )
 
-export const getDiscrete = <D extends string, U extends string>(
+export const getDiscrete = <D extends symbol, U extends string>(
   dimension: D,
   unit: U
-): t.Type<D.Discrete<D, U>, string, t.mixed> => {
+): t.Type<D.Discrete<D, U>, string, unknown> => {
   const format = { dimension, unit }
   return new t.Type(
     'Discrete',
@@ -61,22 +61,22 @@ export const getDiscrete = <D extends string, U extends string>(
   )
 }
 
-export const ExchangeRate = <S, D>(): t.Type<ER.ExchangeRate<S, D>, [string, string], t.mixed> =>
+export const ExchangeRate = <S, D>(): t.Type<ER.ExchangeRate<S, D>, [string, string], unknown> =>
   unsafeCoerce(PositiveRational)
 
-export const Integer: t.Type<I.Integer, string, t.mixed> = unsafeCoerce(BigInteger)
+export const Integer: t.Type<I.Integer, string, unknown> = unsafeCoerce(BigInteger)
 
-export const Natural: t.Type<N.Natural, string, t.mixed> = unsafeCoerce(
+export const Natural: t.Type<N.Natural, string, unknown> = unsafeCoerce(
   t.refinement(BigInteger, (bi) => bi.isPositive(), 'Natural')
 )
 
-export const NonZeroInteger: t.Type<NZI.NonZeroInteger, string, t.mixed> = unsafeCoerce(
+export const NonZeroInteger: t.Type<NZI.NonZeroInteger, string, unknown> = unsafeCoerce(
   t.refinement(BigInteger, (bi) => !bi.isZero(), 'NonZeroInteger')
 )
 
 const NonZeroRationalC = t.tuple([NonZeroInteger, Natural])
 
-export const NonZeroRational: t.Type<NZR.NonZeroRational, [string, string], t.mixed> = new t.Type(
+export const NonZeroRational: t.Type<NZR.NonZeroRational, [string, string], unknown> = new t.Type(
   'NonZeroRational',
   NonZeroRationalC.is,
   (m, c) =>
@@ -89,7 +89,7 @@ export const NonZeroRational: t.Type<NZR.NonZeroRational, [string, string], t.mi
 
 const PositiveRationalC = t.tuple([Natural, Natural])
 
-export const PositiveRational: t.Type<PR.PositiveRational, [string, string], t.mixed> = new t.Type(
+export const PositiveRational: t.Type<PR.PositiveRational, [string, string], unknown> = new t.Type(
   'PositiveRational',
   PositiveRationalC.is,
   (m, c) =>
@@ -102,7 +102,7 @@ export const PositiveRational: t.Type<PR.PositiveRational, [string, string], t.m
 
 const RationalC = t.tuple([Integer, Natural])
 
-export const Rational: t.Type<RTN.Rational, [string, string], t.mixed> = new t.Type(
+export const Rational: t.Type<RTN.Rational, [string, string], unknown> = new t.Type(
   'Rational',
   RationalC.is,
   (m, c) =>

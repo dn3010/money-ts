@@ -34,7 +34,7 @@ export const BigInteger = ...
 **Signature**
 
 ```ts
-export const Integer: t.Type<I.Integer, string, t.mixed> = ...
+export const Integer: t.Type<I.Integer, string, unknown> = ...
 ```
 
 # Natural (constant)
@@ -42,7 +42,7 @@ export const Integer: t.Type<I.Integer, string, t.mixed> = ...
 **Signature**
 
 ```ts
-export const Natural: t.Type<N.Natural, string, t.mixed> = ...
+export const Natural: t.Type<N.Natural, string, unknown> = ...
 ```
 
 # NonZeroInteger (constant)
@@ -50,7 +50,7 @@ export const Natural: t.Type<N.Natural, string, t.mixed> = ...
 **Signature**
 
 ```ts
-export const NonZeroInteger: t.Type<NZI.NonZeroInteger, string, t.mixed> = ...
+export const NonZeroInteger: t.Type<NZI.NonZeroInteger, string, unknown> = ...
 ```
 
 # NonZeroRational (constant)
@@ -58,7 +58,7 @@ export const NonZeroInteger: t.Type<NZI.NonZeroInteger, string, t.mixed> = ...
 **Signature**
 
 ```ts
-export const NonZeroRational: t.Type<NZR.NonZeroRational, [string, string], t.mixed> = ...
+export const NonZeroRational: t.Type<NZR.NonZeroRational, [string, string], unknown> = ...
 ```
 
 # PositiveRational (constant)
@@ -66,7 +66,7 @@ export const NonZeroRational: t.Type<NZR.NonZeroRational, [string, string], t.mi
 **Signature**
 
 ```ts
-export const PositiveRational: t.Type<PR.PositiveRational, [string, string], t.mixed> = ...
+export const PositiveRational: t.Type<PR.PositiveRational, [string, string], unknown> = ...
 ```
 
 # Rational (constant)
@@ -74,7 +74,7 @@ export const PositiveRational: t.Type<PR.PositiveRational, [string, string], t.m
 **Signature**
 
 ```ts
-export const Rational: t.Type<RTN.Rational, [string, string], t.mixed> = ...
+export const Rational: t.Type<RTN.Rational, [string, string], unknown> = ...
 ```
 
 # ExchangeRate (function)
@@ -82,7 +82,7 @@ export const Rational: t.Type<RTN.Rational, [string, string], t.mixed> = ...
 **Signature**
 
 ```ts
-export const ExchangeRate = <S, D>(): t.Type<ER.ExchangeRate<S, D>, [string, string], t.mixed> => ...
+export const ExchangeRate = <S, D>(): t.Type<ER.ExchangeRate<S, D>, [string, string], unknown> => ...
 ```
 
 # getDense (function)
@@ -90,7 +90,7 @@ export const ExchangeRate = <S, D>(): t.Type<ER.ExchangeRate<S, D>, [string, str
 **Signature**
 
 ```ts
-export const getDense = <D extends string>(dimension: D): t.Type<Dense<D>, [string, string], t.mixed> =>
+export const getDense = <D extends symbol>(dimension: D): t.Type<Dense<D>, [string, string], unknown> =>
   new t.Type(
     'Dense',
     (m): m is Dense<D> => m instanceof Dense && m.dimension === dimension,
@@ -107,8 +107,8 @@ export const getDense = <D extends string>(dimension: D): t.Type<Dense<D>, [stri
 **Signature**
 
 ```ts
-export const getDiscrete = <D extends string, U extends string>(
+export const getDiscrete = <D extends symbol, U extends string>(
   dimension: D,
   unit: U
-): t.Type<D.Discrete<D, U>, string, t.mixed> => ...
+): t.Type<D.Discrete<D, U>, string, unknown> => ...
 ```

@@ -30,7 +30,7 @@ parent: Modules
 **Signature**
 
 ```ts
-export interface Format<D extends string, U extends string | number | symbol> {
+export interface Format<D extends symbol, U extends string | number | symbol> {
   dimension: D
   unit: U
 }
@@ -116,7 +116,7 @@ toString(): string { ... }
 **Signature**
 
 ```ts
-export function getEq<D extends string, U extends string | number | symbol>(): Eq<Discrete<D, U>> { ... }
+export function getEq<D extends symbol, U extends string | number | symbol>(): Eq<Discrete<D, U>> { ... }
 ```
 
 # getOne (function)
@@ -124,7 +124,7 @@ export function getEq<D extends string, U extends string | number | symbol>(): E
 **Signature**
 
 ```ts
-export function getOne<D extends string, U extends string>(format: Format<D, U>): Discrete<D, U> { ... }
+export function getOne<D extends symbol, U extends string | number | symbol>(format: Format<D, U>): Discrete<D, U> { ... }
 ```
 
 # getOrd (function)
@@ -132,7 +132,7 @@ export function getOne<D extends string, U extends string>(format: Format<D, U>)
 **Signature**
 
 ```ts
-export function getOrd<D extends string, U extends string | number | symbol>(): Ord<Discrete<D, U>> { ... }
+export function getOrd<D extends symbol, U extends string | number | symbol>(): Ord<Discrete<D, U>> { ... }
 ```
 
 # getZero (function)
@@ -140,5 +140,5 @@ export function getOrd<D extends string, U extends string | number | symbol>(): 
 **Signature**
 
 ```ts
-export function getZero<D extends string, U extends string>(format: Format<D, U>): Discrete<D, U> { ... }
+export function getZero<D extends symbol, U extends string | number | symbol>(format: Format<D, U>): Discrete<D, U> { ... }
 ```

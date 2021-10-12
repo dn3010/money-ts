@@ -2,10 +2,13 @@ import { scale } from '../Scale'
 import { PositiveRational } from '../PositiveRational'
 import { unsafePositiveRational } from './unsafePositiveRational'
 
+export const XAG: unique symbol = Symbol.for('XAG')
+export type XAG = typeof XAG
+
 declare module '../Scale' {
   interface Scale {
     /** Silver. No canonical smallest unit */
-    XAG: {
+    [XAG]: {
       'troy-ounce': PositiveRational
       grain: PositiveRational
       milligrain: PositiveRational
@@ -18,7 +21,7 @@ declare module '../Scale' {
   }
 }
 
-scale['XAG'] = {
+scale[XAG] = {
   'troy-ounce': unsafePositiveRational([1, 1]),
   grain: unsafePositiveRational([480, 1]),
   milligrain: unsafePositiveRational([480000, 1]),

@@ -4,12 +4,12 @@ import * as integer from './Integer'
 import { Eq } from 'fp-ts/Eq'
 import { Ord } from 'fp-ts/Ord'
 
-export interface Format<D extends string, U extends string | number | symbol> {
+export interface Format<D extends symbol, U extends string | number | symbol> {
   dimension: D
   unit: U
 }
 
-export class Discrete<D extends string, U extends string | number | symbol> {
+export class Discrete<D extends symbol, U extends string | number | symbol> {
   constructor(readonly format: Format<D, U>, readonly value: Integer) {}
   add(y: Discrete<D, U>): Discrete<D, U> {
     return new Discrete(this.format, integer.add(this.value, y.value))
@@ -33,25 +33,25 @@ export class Discrete<D extends string, U extends string | number | symbol> {
     return this.toString()
   }
   toString(): string {
-    return `${this.format.dimension} ${this.format.unit} ${integer.show(this.value)}`
+    return `${this.format.dimension.toString().slice(7, -1)} ${this.format.unit} ${integer.show(this.value)}`
   }
 }
 
-export function getOne<D extends string, U extends string>(format: Format<D, U>): Discrete<D, U> {
+export function getOne<D extends symbol, U extends string | number | symbol>(format: Format<D, U>): Discrete<D, U> {
   return new Discrete(format, integer.one)
 }
 
-export function getZero<D extends string, U extends string>(format: Format<D, U>): Discrete<D, U> {
+export function getZero<D extends symbol, U extends string | number | symbol>(format: Format<D, U>): Discrete<D, U> {
   return new Discrete(format, integer.zero)
 }
 
-export function getEq<D extends string, U extends string | number | symbol>(): Eq<Discrete<D, U>> {
+export function getEq<D extends symbol, U extends string | number | symbol>(): Eq<Discrete<D, U>> {
   return {
     equals: (x, y) => integer.Eq.equals(x.value, y.value)
   }
 }
 
-export function getOrd<D extends string, U extends string | number | symbol>(): Ord<Discrete<D, U>> {
+export function getOrd<D extends symbol, U extends string | number | symbol>(): Ord<Discrete<D, U>> {
   return {
     ...getEq(),
     compare: (x, y) => integer.Ord.compare(x.value, y.value)

@@ -28,7 +28,7 @@ export interface Scale {}
 **Signature**
 
 ```ts
-export type Dimensions = keyof Scale
+export type Dimensions = Exclude<keyof Scale, string | number>
 ```
 
 # Units (type alias)

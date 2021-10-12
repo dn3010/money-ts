@@ -135,7 +135,7 @@ export function fromDiscrete<D extends Dimensions, U extends Units<D>>(d: Discre
 **Signature**
 
 ```ts
-export function fromInteger<D extends string>(d: D, i: Integer): Dense<D> { ... }
+export function fromInteger<D extends symbol>(d: D, i: Integer): Dense<D> { ... }
 ```
 
 # getEq (function)
@@ -143,7 +143,7 @@ export function fromInteger<D extends string>(d: D, i: Integer): Dense<D> { ... 
 **Signature**
 
 ```ts
-export function getEq<D extends string>(): Eq<Dense<D>> { ... }
+export function getEq<D extends symbol>(): Eq<Dense<D>> { ... }
 ```
 
 # getOne (function)
@@ -151,7 +151,7 @@ export function getEq<D extends string>(): Eq<Dense<D>> { ... }
 **Signature**
 
 ```ts
-export function getOne<D extends string>(d: D): Dense<D> { ... }
+export function getOne<D extends symbol>(d: D): Dense<D> { ... }
 ```
 
 # getOrd (function)
@@ -159,7 +159,7 @@ export function getOne<D extends string>(d: D): Dense<D> { ... }
 **Signature**
 
 ```ts
-export function getOrd<D extends string>(): Ord<Dense<D>> { ... }
+export function getOrd<D extends symbol>(): Ord<Dense<D>> { ... }
 ```
 
 # getScale (function)
@@ -175,7 +175,7 @@ export function getScale<D extends Dimensions, U extends Units<D>>(format: Forma
 **Signature**
 
 ```ts
-export function getZero<D extends string>(d: D): Dense<D> { ... }
+export function getZero<D extends symbol>(d: D): Dense<D> { ... }
 ```
 
 # round (function)

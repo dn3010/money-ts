@@ -42,7 +42,7 @@ export const assertEqualInteger = getAssertEqual(I.Eq)
 
 const denseEq = D.getEq<any>()
 
-export function assertEqualDense<D extends string>(x: D.Dense<D>): (y: D.Dense<D>) => void {
+export function assertEqualDense<D extends symbol>(x: D.Dense<D>): (y: D.Dense<D>) => void {
   return (y) => {
     if (!denseEq.equals(x, y)) {
       assert.fail(`${x} !== ${y}`)
@@ -52,7 +52,7 @@ export function assertEqualDense<D extends string>(x: D.Dense<D>): (y: D.Dense<D
 
 const discreteEq = DC.getEq<any, any>()
 
-export function assertEqualDiscrete<D extends string, U extends string>(
+export function assertEqualDiscrete<D extends symbol, U extends string>(
   x: DC.Discrete<D, U>
 ): (y: DC.Discrete<D, U>) => void {
   return (y) => {
@@ -125,7 +125,7 @@ const RationalGenerator: Generator<R.Rational> = gen
   .array([IntegerGenerator, NaturalGenerator])
   .then((r) => R.reduce(r[0], r[1]))
 
-export function getDenseGenerator<D extends string>(dimension: D): Generator<D.Dense<D>> {
+export function getDenseGenerator<D extends symbol>(dimension: D): Generator<D.Dense<D>> {
   return RationalGenerator.then((r) => new D.Dense(dimension, r))
 }
 

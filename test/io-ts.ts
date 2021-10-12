@@ -11,6 +11,8 @@ import * as R from '../src/Rational'
 import * as NZR from '../src/NonZeroRational'
 import * as PR from '../src/PositiveRational'
 import * as iots from '../src/io-ts'
+import { EUR } from '../src/scale/EUR'
+import { USD } from '../src/scale/USD'
 
 describe('io-ts types', () => {
   describe('BigInteger', () => {
@@ -168,28 +170,28 @@ describe('io-ts types', () => {
 
   describe('Discrete', () => {
     it('decode', () => {
-      const format: DC.Format<'EUR', 'cent'> = { dimension: 'EUR', unit: 'cent' }
+      const format: DC.Format<EUR, 'cent'> = { dimension: EUR, unit: 'cent' }
       const one = DC.getOne(format)
       const zero = DC.getZero(format)
-      const T = iots.getDiscrete('EUR', 'cent')
+      const T = iots.getDiscrete(EUR, 'cent')
       assert.deepEqual(fromEither(T.decode(1)), some(one))
       assert.deepEqual(fromEither(T.decode(0)), some(zero))
       assert.deepEqual(fromEither(T.decode(1.1)), none)
     })
 
     it('is', () => {
-      const format = { dimension: 'EUR', unit: 'cent' }
-      const T = iots.getDiscrete('EUR', 'cent')
+      const format = { dimension: EUR, unit: 'cent' }
+      const T = iots.getDiscrete(EUR, 'cent')
       assert.strictEqual(T.is(new DC.Discrete(format, I.wrap(BI(1)))), true)
       assert.strictEqual(T.is(new DC.Discrete(format, I.wrap(BI(0)))), true)
       assert.strictEqual(T.is(new DC.Discrete(format, I.wrap(BI(-1)))), true)
-      assert.strictEqual(T.is(new DC.Discrete({ dimension: 'EUR', unit: 'euro' }, I.wrap(BI(1)))), false)
-      assert.strictEqual(T.is(new DC.Discrete({ dimension: 'USD', unit: 'cent' }, I.wrap(BI(1)))), false)
+      assert.strictEqual(T.is(new DC.Discrete({ dimension: EUR, unit: 'euro' }, I.wrap(BI(1)))), false)
+      assert.strictEqual(T.is(new DC.Discrete({ dimension: USD, unit: 'cent' }, I.wrap(BI(1)))), false)
     })
 
     it('encode', () => {
-      const format: DC.Format<'EUR', 'cent'> = { dimension: 'EUR', unit: 'cent' }
-      const T = iots.getDiscrete('EUR', 'cent')
+      const format: DC.Format<EUR, 'cent'> = { dimension: EUR, unit: 'cent' }
+      const T = iots.getDiscrete(EUR, 'cent')
       const d = new DC.Discrete(format, I.wrap(BI(100)))
       assert.strictEqual(T.encode(d), '100')
     })
@@ -197,9 +199,9 @@ describe('io-ts types', () => {
 
   describe('Dense', () => {
     it('decode', () => {
-      const one = D.getOne('EUR')
-      const zero = D.getZero('EUR')
-      const T = iots.getDense('EUR')
+      const one = D.getOne(EUR)
+      const zero = D.getZero(EUR)
+      const T = iots.getDense(EUR)
       assert.deepEqual(fromEither(T.decode(1)), none)
       assert.deepEqual(fromEither(T.decode([1, 0])), none)
       assert.deepEqual(fromEither(T.decode([1, 1])), some(one))
@@ -208,16 +210,16 @@ describe('io-ts types', () => {
     })
 
     it('is', () => {
-      const T = iots.getDense('EUR')
-      assert.strictEqual(T.is(new D.Dense('EUR', unsafeRational([0, 1]))), true)
-      assert.strictEqual(T.is(new D.Dense('EUR', unsafeRational([2, 1]))), true)
-      assert.strictEqual(T.is(new D.Dense('EUR', unsafeRational([-2, 1]))), true)
-      assert.strictEqual(T.is(new D.Dense('USD', unsafeRational([2, 1]))), false)
+      const T = iots.getDense(EUR)
+      assert.strictEqual(T.is(new D.Dense(EUR, unsafeRational([0, 1]))), true)
+      assert.strictEqual(T.is(new D.Dense(EUR, unsafeRational([2, 1]))), true)
+      assert.strictEqual(T.is(new D.Dense(EUR, unsafeRational([-2, 1]))), true)
+      assert.strictEqual(T.is(new D.Dense(USD, unsafeRational([2, 1]))), false)
     })
 
     it('encode', () => {
-      const T = iots.getDense('EUR')
-      const d = new D.Dense('EUR', unsafeRational([2, 1]))
+      const T = iots.getDense(EUR)
+      const d = new D.Dense(EUR, unsafeRational([2, 1]))
       assert.deepEqual(T.encode(d), ['2', '1'])
     })
   })
